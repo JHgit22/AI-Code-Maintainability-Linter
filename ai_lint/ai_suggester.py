@@ -1,13 +1,13 @@
 import os
 
-from anthropic import Anthropic
+from google import genai
 
 from .checks.base import Issue
 
 
 class AiSuggester:
-    def __init__(self, api_key: str | None = None, model: str = "claude-haiku-4-5-20251001"):
-        self.client = Anthropic(api_key=api_key or os.environ.get("ANTHROPIC_API_KEY"))
+    def __init__(self, api_key: str | None = None, model: str = "gemini-3.5-flash"):
+        self.client = genai.Client(api_key=api_key or os.environ.get("GEMINI_API_KEY"))
         self.model = model
 
     def suggest(self, issue: Issue, code_snippet: str) -> str:
@@ -18,10 +18,9 @@ class AiSuggester:
             "then suggest a concrete rewrite."
         )
 
-        response = self.client.messages.create(
+        response = self.client.models.generate_content(
             model=self.model,
-            max_tokens=300,
-            messages=[{"role": "user", "content": prompt}],
+            contents=prompt,
         )
 
-        return response.content[0].text
+        return response.text
