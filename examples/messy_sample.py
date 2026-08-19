@@ -40,3 +40,8 @@ def a_really_long_function_that_should_get_flagged():
 def calculate_price():
     tax_rate = 47
     return tax_rate
+
+
+def badlyNamedFunction():
+    myBadVariable = 1
+    return myBadVariable
