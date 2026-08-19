@@ -45,3 +45,12 @@ def calculate_price():
 def badlyNamedFunction():
     myBadVariable = 1
     return myBadVariable
+
+
+def deeply_nested_example(items):
+    if items:
+        for item in items:
+            if item > 0:
+                while item > 1:
+                    item -= 1
+    return items
